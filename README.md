@@ -2,6 +2,8 @@
 
 This is a repo for the utilities required to make a diff of historic Jass other scripts files between old versions.
 
+See the result here: https://github.com/Luashine/jass-history/
+
 ## MPQ Extraction
 
 **Q:** *WTF is this?*
