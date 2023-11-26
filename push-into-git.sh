@@ -13,7 +13,7 @@ set -e
 
 gitDir="$1"
 historicDir="war3extract"
-versionedDir="versioned"
+versionedDir="timeline"
 # must have paths relative to historicDir
 # like ROC-v1.01-ru, without slashes or dots
 versionList="version-list-sorted.txt"
