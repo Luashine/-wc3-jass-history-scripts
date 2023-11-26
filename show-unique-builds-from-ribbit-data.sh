@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Use both data repos, some versions are in one but not other, sometimes in both
+# https://github.com/mdX7/ribbit_data
+# https://github.com/mdX7/ngdp_data/
+
 # Usage:
 # ./script <path to ribbit/ngdp data of the game you want> > version-list.txt
 
