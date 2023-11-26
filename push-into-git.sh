@@ -2,14 +2,21 @@
 
 # USAGE:
 
-# sh push-into-git.sh /path/to/jass-history-git/
+# sh push-into-git.sh [--ignore-count] /path/to/jass-history-git/
 
 # This will record each child dir of $historicDir as a separate commit and tag.
 
 # The list of folders is specified in $versionList, should be sorted to have proper diffs.
 
+# --ignore-count will ignore a mismatch between folders present and lines recorded in sorted list
 
 set -e
+
+ignoreCountMismatch="n"
+if [[ "$1" = "--ignore-count" ]]; then
+	ignoreCountMismatch="y"
+	shift;
+fi
 
 gitDir="$1"
 historicDir="war3extract"
@@ -44,9 +51,11 @@ main() {
 	local historicEntryCount="$(find "$historicDir" -maxdepth 1 -mindepth 1 -type d | wc -l)"
 	
 	if [[ ! "$listEntryCount" -eq "$historicEntryCount" ]]; then
-		echoerr "Filtered version list mismatched entry count compared to folder on disk:"
-		>&2 printf "%d vs %d, expected equal\n" "$listEntryCount"  "$historicEntryCount"
-		exit 4
+		if [[ "$ignoreCountMismatch" != "y" ]]; then
+			echoerr "Filtered version list mismatched entry count compared to folder on disk:"
+			>&2 printf "%d vs %d, expected equal\n" "$listEntryCount"  "$historicEntryCount"
+			exit 4
+		fi
 	fi
 	
 	while read -u 5 ver; do
