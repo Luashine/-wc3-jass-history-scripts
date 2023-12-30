@@ -64,6 +64,12 @@ else
 	cdnBranch=""
 
 	#  IN:2022-10-05-w3t.cfg:1.32.10.17020|931fc85d861c7ebb4dde1aa044f4ae9e|version-w3t-491204.bmime
+	if (echo "$cdnString" | grep 'versions$' &>/dev/null); then
+		# CDN branch not found, hack it in
+		cdnString="${cdnString:0:-1}-w3cdnunknown"
+		>&2 echo "   Did not find CDN branch :( adding a placeholder name: ${cdnString}"
+	fi
+
 	cdn_lineMatch="$(echo "$cdnString" | grep -oP '([\d.]+)\|[a-fA-F0-9]{32}\|version\-([^-]+)')"
 
 	# OUT:1.32.10.17020|931fc85d861c7ebb4dde1aa044f4ae9e|version-w3t
